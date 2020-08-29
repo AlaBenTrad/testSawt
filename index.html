@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title> مَا هَذَا الصَّوْتُ؟</title>
+	 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script>
+	 $("#IDIFRAME").css({
+                    "overflow": "",
+                    "height": "",
+					"top" :"",
+					"left":"",
+					"transform":"",
+					"transform-origin":"top left"
+                });
+						  function resizeIFrameToFitContent( iFrame ) {
+
+							iFrame.width  = iFrame.contentWindow.document.body.scrollWidth;
+							iFrame.height = iFrame.contentWindow.document.body.scrollHeight;
+							alert(iFrame.height)
+						}					  
+</script>
+<style>
+html, body {margin: 0; height: 100%; overflow: hidden;  background: #ccc;}
+.very-specific-design {
+  width: 955px;
+  height: 670px;
+  text-align: center;
+  background: white;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%, 0);
+  transform-origin: top  center;
+  overflow: hidden;
+}
+.scaleable-wrapper {
+height: 100%;
+  resize: both;
+  position: relative;
+  background: #FFF;
+  overflow: hidden;
+}
+.ui-resizable-se {
+  width: 10px;
+  height: 10px;
+  background: #FFF;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+}
+</style>
+</head>
+<body >
+<div class="scaleable-wrapper" id="scaleable-wrapper">
+   <iframe id="very-specific-design" class="very-specific-design" src="1.html" frameborder="no" scrolling="no" border="0"></iframe>
+   </div>
+<script>
+document.getElementById('very-specific-design').onload = function() {
+Fun_resize()
+};
+window.addEventListener("resize", myFunction);
+function myFunction() {
+Fun_resize()
+}
+function Fun_resize() {
+var $el = $("#very-specific-design");
+var elHeight = $el.outerHeight();
+var elWidth = $el.outerWidth();
+var $wrapper = $("#scaleable-wrapper");
+$wrapper.resizable({
+  resize: doResize
+});
+function doResize(event, ui) {
+  var scale, origin;
+  scale = Math.min(
+    ui.size.width / elWidth,    
+    ui.size.height / elHeight
+  );
+  $el.css({
+    transform: "translate(-50%, 0) " + "scale(" + scale + ")"
+  });
+}
+var starterData = { 
+  size: {
+    width: $wrapper.width(),
+    height: $wrapper.height()
+  }
+}
+doResize(null, starterData);
+}
+
+
+
+</script>
+
+</body>
+</html>
